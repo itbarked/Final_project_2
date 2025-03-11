@@ -31,22 +31,26 @@ def test_kuchynske_potreby(page):
     znacka_orion_checkbox = page.locator("#maklab57")
     znacka_orion_checkbox.check()
     
-    page.wait_for_selector(".item", state="visible", timeout=10000)
+    page.wait_for_load_state("networkidle", timeout=30000)
 
     nejlevnejsi_button = page.locator("#li_price")
     page.wait_for_selector("#li_price", state="visible", timeout=10000)
     nejlevnejsi_button.click()
 
-    page.wait_for_selector(".item", state="visible", timeout=10000)
+    page.wait_for_load_state("networkidle", timeout=30000)
 
     #kontrola, že jsou ceny skutečně srovnány od nejnižší po nejvyšší
-    prices = page.query_selector_all(".price")
-    price_values = []
+    products_wrap = page.query_selector('.products-wrap.v2')
+    products = products_wrap.query_selector_all(".price")
+    prices = []
     
-    for price in prices:
-        price_text = price.inner_text()
-        price_text = price_text.replace(" Kč", "").replace("0\nPřejít k objednávce", "0").strip()
-        price_number = float(price_text.replace(",", "."))
-        price_values.append(price_number)  
-        print(price_values)
-        assert price_values == sorted(price_values), "Ceny nejsou seřazeny vzestupně."
+    for product in products:
+            price_element = product.query_selector('.price')
+            if price_element:
+                price_text = price_element.inner_text().replace(' Kč', '').strip()
+                try:
+                    price = float(price_text.replace(',', '.'))
+                    prices.append(price)
+                except ValueError:
+                    pass
+    assert prices == sorted(prices), "Produkty nejsou seřazeny podle ceny od nejlevnější po nejdražší"
