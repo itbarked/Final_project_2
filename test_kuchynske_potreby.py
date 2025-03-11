@@ -15,7 +15,7 @@ def page(browser):
     yield page
     page.close()
 
-def test_kuchynske_potreby(page):
+def test_price_sorting(page):
     url="https://www.kuchynskepotreby.cz/"
     page.goto(url)
 
@@ -53,4 +53,4 @@ def test_kuchynske_potreby(page):
                     prices.append(price)
                 except ValueError:
                     pass
-    assert prices == sorted(prices), "Produkty nejsou seřazeny podle ceny od nejlevnější po nejdražší"
+    assert prices == sorted(prices), "Produkty nejsou seřazeny podle ceny od nejlevnější po nejdražší."
