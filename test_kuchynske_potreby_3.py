@@ -7,7 +7,7 @@ def test_cart():
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
 
-        url="https://www.kuchynskepotreby.cz/"
+        url="https://www.kuchynskepotreby.cz/bloky-listy-na-noze/"
         page.goto(url)
 
         reject_cookies_button = page.locator("#xx-cookies-plugin > div.cp-content-wrap.no-transition > div > p:nth-child(5) > a")
@@ -15,15 +15,17 @@ def test_cart():
 
         product_1 = page.locator("button:has-text('Koupit')").first
         product_1.click()
-        page.wait_for_selector(".fancybox-slide fancybox-slide--current fancybox-slide--html fancybox-slide--complete") 
-        pokracovat_ve_vyberu_button = page.locator(".special_submit spec_l")
+        close_button = page.locator("button[data-fancybox-close][title='Close']")
+        close_button.click
 
-        product_2 = page.locator("button:has-text('Koupit')").nth(1).click()
-        page.wait_for_selector(".popup_body fancybox-content")
-        pokracovat_ve_vyberu_button = page.locator(".special_submit spec_l")
+        product_2 = page.locator("button:has-text('Koupit')").nth(1)
+        product_2.click()
+        close_button = page.locator("button[data-fancybox-close][title='Close']")
+        close_button.click
 
         cart = page.locator("#basket_cena")
         cart.click()
+        page.wait_for_load_state("networkidle", timeout=30000)
 
         product_names = page.locator("#basketa > table > tbody").all_inner_texts()
 
