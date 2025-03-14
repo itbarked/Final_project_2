@@ -13,13 +13,14 @@ def test_cart():
         reject_cookies_button = page.locator("#xx-cookies-plugin > div.cp-content-wrap.no-transition > div > p:nth-child(5) > a")
         reject_cookies_button.click()
 
-        product_1 = page.locator("text=Koupit").first.click()
-        page.wait_for_selector(".popup_body fancybox-content")
-        pokracovat_ve_vyberu_button = page.locator(".special_submit spec_1")
+        product_1 = page.locator("button:has-text('Koupit')").first
+        product_1.click()
+        page.wait_for_selector(".fancybox-slide fancybox-slide--current fancybox-slide--html fancybox-slide--complete") 
+        pokracovat_ve_vyberu_button = page.locator(".special_submit spec_l")
 
-        product_2 = page.locator("text=Koupit").nth(1).click()
+        product_2 = page.locator("button:has-text('Koupit')").nth(1).click()
         page.wait_for_selector(".popup_body fancybox-content")
-        pokracovat_ve_vyberu_button = page.locator(".special_submit spec_1")
+        pokracovat_ve_vyberu_button = page.locator(".special_submit spec_l")
 
         cart = page.locator("#basket_cena")
         cart.click()
