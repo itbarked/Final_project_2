@@ -33,7 +33,7 @@ def test_cart_count(page):
     cart.click()
     page.wait_for_load_state("networkidle", timeout=30000)
 
-    No_of_products_in_basket = page.inner_text('#basket_pocet')
+    No_of_products_in_basket = page.inner_text("#basket_pocet")
     assert No_of_products_in_basket == "2", f"V košíku by měly být 2 různé produkty, ale je jich tam: {No_of_products_in_basket}"
 
 def test_cart_sum(page):
