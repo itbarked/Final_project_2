@@ -15,13 +15,11 @@ def test_cart():
 
         product_1 = page.locator("button:has-text('Koupit')").first
         product_1.click()
-        close_button = page.locator("button[data-fancybox-close][title='Close']")
-        close_button.click
+        page.keyboard.press("Escape")
 
         product_2 = page.locator("button:has-text('Koupit')").nth(1)
         product_2.click()
-        close_button = page.locator("button[data-fancybox-close][title='Close']")
-        close_button.click
+        page.keyboard.press("Escape")
 
         cart = page.locator("#basket_cena")
         cart.click()
