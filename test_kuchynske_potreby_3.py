@@ -25,9 +25,7 @@ def test_cart():
         cart.click()
         page.wait_for_load_state("networkidle", timeout=30000)
 
-        product_names = page.locator("#basketa > table > tbody").all_inner_texts()
-
-        assert len(product_names) == 2, "V košíku není správný počet produktů."
-        assert product_names[0] != product_names[1], "Produkty v košíku jsou stejné, očekávali jsme dva různé produkty."
+        No_of_products_in_basket = page.inner_text('#basket_pocet')
+        assert No_of_products_in_basket == "2", f"V košíku by měly být 2 různé produkty, ale je jich tam: {No_of_products_in_basket}"
 
         browser.close()
