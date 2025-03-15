@@ -19,10 +19,10 @@ def test_price_sorting(page):
     url="https://www.kuchynskepotreby.cz/"
     page.goto(url)
 
-    reject_cookies_button = page.locator("#xx-cookies-plugin > div.cp-content-wrap.no-transition > div > p:nth-child(5) > a") #odkliknu cookies
+    reject_cookies_button = page.locator("#xx-cookies-plugin > div.cp-content-wrap.no-transition > div > p:nth-child(5) > a")
     reject_cookies_button.click() 
 
-    organizace_kuchyne_button = page.locator("#menu > div > ul > li:nth-child(7) > a") #proklikám se ke stojanům na nože značky Orion srovnané od nejlevnějšího
+    organizace_kuchyne_button = page.locator("#menu > div > ul > li:nth-child(7) > a")
     organizace_kuchyne_button.click()
     
     bloky_na_noze_button = page.locator("#content > ul > li:nth-child(4) > a > span")
@@ -39,17 +39,16 @@ def test_price_sorting(page):
 
     page.wait_for_load_state("networkidle", timeout=30000)
 
-    #kontrola, že jsou ceny skutečně srovnány od nejnižší po nejvyšší
-    products_wrap = page.query_selector('.products-wrap.v2')
+    products_wrap = page.query_selector(".products-wrap.v2")
     products = products_wrap.query_selector_all(".price")
     prices = []
     
     for product in products:
-            price_element = product.query_selector('.price')
+            price_element = product.query_selector(".price")
             if price_element:
-                price_text = price_element.inner_text().replace(' Kč', '').strip()
+                price_text = price_element.inner_text().replace(" Kč", "").strip()
                 try:
-                    price = float(price_text.replace(',', '.'))
+                    price = float(price_text.replace(",", "."))
                     prices.append(price)
                 except ValueError:
                     pass
