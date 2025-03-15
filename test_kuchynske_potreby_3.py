@@ -44,10 +44,10 @@ def test_cart_sum(page):
     product_1_price = cart_wrap.query_selector("#basketa > table > tbody > tr:nth-child(1) > td.price").inner_text()
     product_2_price = cart_wrap.query_selector("#basketa > table > tbody > tr:nth-child(2) > td.price").inner_text()
     price_total = cart_wrap.query_selector("#basketa > div.basket-total-price > strong").inner_text()
-
-    product_1_price = float(product_1_price.replace("Kč", "").strip())
-    product_2_price = float(product_2_price.replace("Kč", "").strip())
-    price_total = float(price_total.replace("Kč", "").strip())
+    
+    product_1_price = float(product_1_price.replace("Kč", "").replace(" ", "").strip())
+    product_2_price = float(product_2_price.replace("Kč", "").replace(" ", "").strip())
+    price_total = float(price_total.replace("Kč", "").replace(" ", "").strip())
 
     expected_total = product_1_price + product_2_price
     assert expected_total == price_total, f"Součet cen produktů ({expected_total}) není rovný celkové ceně ({price_total})"
